@@ -1,0 +1,36 @@
+// Base Compass Imports
+
+@import 'compass';
+@import 'compass/css3';
+@import 'compass/utilities';
+@import 'animation/core';
+@import 'animation/animate';
+
+// OpenSphere Style Imports
+
+@import 'ui/partials/flex';
+@import 'os/overrides/openlayers';
+
+// App Styles
+
+$map-bg-color: #000;
+
+.win-container {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.map {
+  @include flex(1);
+  background-color: $map-bg-color;
+  position: relative;
+}
+
+//
+// Bootstrap 4's reboot changes the body font-size to 1rem, which differs from
+// OpenSphere's. This fixes the map control button layout.
+//
+.ol-control button {
+  font-size: 1rem;
+}

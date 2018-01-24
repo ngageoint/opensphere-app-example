@@ -1,0 +1,122 @@
+{
+  "name": "opensphere-app-example",
+  "version": "1.0.0",
+  "description": "A sample application that uses OpenSphere as a library.",
+  "directories": {
+    "src": "src",
+    "scss": "scss",
+    "views": "views"
+  },
+  "build": {
+    "config": "config/settings.json",
+    "gcc-src": [
+      "src/**.js"
+    ],
+    "type": "app",
+    "index": "index.js",
+    "scss": "scss/example.scss",
+    "gcc": {
+      "define": [
+        "os.SETTINGS=config/settings.json",
+        "os.config.appNs='example'"
+      ],
+      "entry_point": [
+        "goog:example"
+      ],
+      "hide_warnings_for": [
+        "/opensphere/"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "npm run init && npm run lint && npm run modernizr && npm run compile && npm run copy && npm run build:index",
+    "build:debug": "npm run init && npm run modernizr && npm run compile:resolve && npm run compile:debugcss && npm run build:debugindex",
+    "build:index": "xargs -n 1 os-index < .build/resources-pages",
+    "build:debugindex": "xargs -n 1 os-index --debug < .build/resources-pages",
+    "build:index": "xargs -n 1 os-index < .build/resources-pages",
+    "compile:resolve": "os-resolve .build --defineRoots $(cat .build/version)",
+    "compile:css": "node-sass --output-style compressed $(cat .build/node-sass-args) > .build/opensphere-app-example.min.css",
+    "compile:debugcss": "node-sass --source-map true -o .build --output-style expanded $(cat .build/node-sass-args)",
+    "compile:gcc": "os-compile $(cat .build/gcc-java-args)",
+    "postcompile:gcc": "echo \"//# sourceMappingURL=`pwd`/.build/opensphere-app-example.min.map\" >> .build/opensphere-app-example.min.js",
+    "compile": "npm run compile:resolve && npm run compile:gcc && npm run compile:css && npm run compile:debugcss",
+    "precopy:files": "mkdirp $(cat .build/version)/styles && mkdirp dist/opensphere-app-example/test",
+    "precopy:views": "mkdirp $(cat .build/version)/views",
+    "precopy:config": "mkdirp dist/opensphere-app-example/config",
+    "precopy:resources": "xargs -n 1 mkdir -p < .build/resources-copy-dirs",
+    "copy:files": "cp .build/opensphere-app-example.min.js $(cat .build/version) && cp .build/opensphere-app-example.min.css $(cat .build/version)/styles",
+    "copy:views": "xargs -n 1 -I @ sh -c 'cp -rf @ $(cat .build/version)/views/.' < .build/copy-views-args",
+    "copy:config": "cp .build/settings.json dist/opensphere-app-example/config",
+    "copy:resources": "xargs -n 2 cp -r < .build/resources-copy-files",
+    "copy": "npm run copy:files && npm run copy:views && npm run copy:config && npm run copy:resources",
+    "init:base": "rimraf .build dist && mkdirp .build dist/opensphere-app-example",
+    "init:debug": "rimraf index.html",
+    "init:version": "echo dist/opensphere-app-example/v$(date +%s) > .build/version",
+    "init:vfolder": "mkdirp $(cat .build/version)",
+    "init": "npm run init:base && npm run init:debug && npm run init:version && npm run init:vfolder",
+    "lint:css": "sass-lint -v -s scss -i 'scss/nolint/**/*.scss' 'scss/**/*.scss'",
+    "lint:js": "eslint --cache 'src/**/*.js'",
+    "lint": "npm run lint:js && npm run lint:css",
+    "modernizr": "modernizr -c modernizr.config.json -u -d .build/modernizr.js"
+  },
+  "keywords": [
+    "opensphere",
+    "geospatial",
+    "geo",
+    "closure"
+  ],
+  "author": "Kevin Schmidt <kschmidt@caci.com>",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ngageoint/opensphere-app-example.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ngageoint/opensphere-app-example/issues"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    },
+    "validate-commit-msg": {
+      "helpMessage": "\nPlease fix your commit message (consider using 'npm i -g commitizen'). Well-formatted commit messages allow us to automate our changelog.\n\nExamples:\n\"fix(states): Fixed bug when parsing opacity from state files\"\n\"feat(timeline): Added support for an arbitrary number of ranges\"\n\nIf you have installed commitizen, try running 'git cz'."
+    }
+  },
+  "devDependencies": {
+    "conventional-changelog-cli": "^1.2.0",
+    "conventional-recommended-bump": "^0.3.0",
+    "cz-conventional-changelog": "^1.2.0",
+    "eslint": "^3.19.0",
+    "eslint-config-google": "^0.7.0",
+    "eslint-config-opensphere": "^1.0.0",
+    "eslint-plugin-google-camelcase": "^0.0.2",
+    "eslint-plugin-opensphere": "^1.0.0",
+    "google-closure-compiler": "^20171203.0.0",
+    "husky": "^0.13.3",
+    "mkdirp": "^0.5.1",
+    "node-sass": "=4.7.2",
+    "opensphere-build-closure-helper": "^1.0.0",
+    "opensphere-build-index": "^1.0.0",
+    "opensphere-build-resolver": "^2.1.0",
+    "rimraf": "^2.5.4",
+    "sass-lint": "^1.9.1",
+    "validate-commit-msg": "^2.8.2"
+  },
+  "dependencies": {
+    "angular": "~1.5.x",
+    "angular-animate": "~1.5.x",
+    "angular-route": "~1.5.x",
+    "angular-sanitize": "~1.5.x",
+    "bootstrap": "^4.0.0",
+    "cesium": "=1.40.0",
+    "font-awesome": "^4.7.0",
+    "google-closure-library": "^20171203.0.0",
+    "jquery": "^2.2.0",
+    "modernizr": "~3.3.x",
+    "moment": "~2.20.1",
+    "ol-cesium": "=1.33.0",
+    "openlayers": "=4.6.2",
+    "opensphere": "^1.0.0",
+    "opensphere-asm": "^1.0.0"
+  }
+}
