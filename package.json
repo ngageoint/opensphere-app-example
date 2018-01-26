@@ -3,15 +3,11 @@
   "version": "1.0.0",
   "description": "A sample application that uses OpenSphere as a library.",
   "directories": {
-    "src": "src",
     "scss": "scss",
     "views": "views"
   },
   "build": {
     "config": "config/settings.json",
-    "gcc-src": [
-      "src/**.js"
-    ],
     "type": "app",
     "index": "index.js",
     "scss": "scss/example.scss",
@@ -29,8 +25,8 @@
     }
   },
   "scripts": {
-    "build": "npm run init && npm run lint && npm run modernizr && npm run compile && npm run copy && npm run build:index",
-    "build:debug": "npm run init && npm run modernizr && npm run compile:resolve && npm run compile:debugcss && npm run build:debugindex",
+    "build": "yarn run init && yarn run lint && yarn run modernizr && yarn run compile && yarn run copy && yarn run build:index",
+    "build:debug": "yarn run init && yarn run modernizr && yarn run compile:resolve && yarn run compile:debugcss && yarn run build:debugindex",
     "build:index": "xargs -n 1 os-index < .build/resources-pages",
     "build:debugindex": "xargs -n 1 os-index --debug < .build/resources-pages",
     "build:index": "xargs -n 1 os-index < .build/resources-pages",
@@ -39,7 +35,7 @@
     "compile:debugcss": "node-sass --source-map true -o .build --output-style expanded $(cat .build/node-sass-args)",
     "compile:gcc": "os-compile $(cat .build/gcc-java-args)",
     "postcompile:gcc": "echo \"//# sourceMappingURL=`pwd`/.build/opensphere-app-example.min.map\" >> .build/opensphere-app-example.min.js",
-    "compile": "npm run compile:resolve && npm run compile:gcc && npm run compile:css && npm run compile:debugcss",
+    "compile": "yarn run compile:resolve && yarn run compile:gcc && yarn run compile:css && yarn run compile:debugcss",
     "precopy:files": "mkdirp $(cat .build/version)/styles && mkdirp dist/opensphere-app-example/test",
     "precopy:views": "mkdirp $(cat .build/version)/views",
     "precopy:config": "mkdirp dist/opensphere-app-example/config",
@@ -48,15 +44,15 @@
     "copy:views": "xargs -n 1 -I @ sh -c 'cp -rf @ $(cat .build/version)/views/.' < .build/copy-views-args",
     "copy:config": "cp .build/settings.json dist/opensphere-app-example/config",
     "copy:resources": "xargs -n 2 cp -r < .build/resources-copy-files",
-    "copy": "npm run copy:files && npm run copy:views && npm run copy:config && npm run copy:resources",
+    "copy": "yarn run copy:files && yarn run copy:views && yarn run copy:config && yarn run copy:resources",
     "init:base": "rimraf .build dist && mkdirp .build dist/opensphere-app-example",
     "init:debug": "rimraf index.html",
     "init:version": "echo dist/opensphere-app-example/v$(date +%s) > .build/version",
     "init:vfolder": "mkdirp $(cat .build/version)",
-    "init": "npm run init:base && npm run init:debug && npm run init:version && npm run init:vfolder",
+    "init": "yarn run init:base && yarn run init:debug && yarn run init:version && yarn run init:vfolder",
     "lint:css": "sass-lint -v -s scss -i 'scss/nolint/**/*.scss' 'scss/**/*.scss'",
     "lint:js": "eslint --cache 'src/**/*.js'",
-    "lint": "npm run lint:js && npm run lint:css",
+    "lint": "yarn run lint:js && yarn run lint:css",
     "modernizr": "modernizr -c modernizr.config.json -u -d .build/modernizr.js"
   },
   "keywords": [
@@ -103,20 +99,8 @@
     "validate-commit-msg": "^2.8.2"
   },
   "dependencies": {
-    "angular": "~1.5.x",
-    "angular-animate": "~1.5.x",
-    "angular-route": "~1.5.x",
-    "angular-sanitize": "~1.5.x",
-    "bootstrap": "^4.0.0",
-    "cesium": "=1.40.0",
-    "font-awesome": "^4.7.0",
     "google-closure-library": "^20171203.0.0",
-    "jquery": "^2.2.0",
     "modernizr": "~3.3.x",
-    "moment": "~2.20.1",
-    "ol-cesium": "=1.33.0",
-    "openlayers": "=4.6.2",
-    "opensphere": "^1.0.0",
-    "opensphere-asm": "^1.0.0"
+    "opensphere": "^1.0.0"
   }
 }
