@@ -29,7 +29,6 @@
     "build:debug": "yarn run init && yarn run modernizr && yarn run compile:resolve && yarn run compile:debugcss && yarn run build:debugindex",
     "build:index": "xargs -n 1 os-index < .build/resources-pages",
     "build:debugindex": "xargs -n 1 os-index --debug < .build/resources-pages",
-    "build:index": "xargs -n 1 os-index < .build/resources-pages",
     "compile:resolve": "os-resolve .build --defineRoots $(cat .build/version)",
     "compile:css": "node-sass --output-style compressed $(cat .build/node-sass-args) > .build/opensphere-app-example.min.css",
     "compile:debugcss": "node-sass --source-map true -o .build --output-style expanded $(cat .build/node-sass-args)",
@@ -99,8 +98,14 @@
     "validate-commit-msg": "^2.8.2"
   },
   "dependencies": {
+    "angular": "~1.5.x",
+    "angular-animate": "~1.5.x",
+    "angular-route": "~1.5.x",
+    "angular-sanitize": "~1.5.x",
+    "bootstrap": "^4.0.0",
     "google-closure-library": "^20171203.0.0",
     "modernizr": "~3.3.x",
+    "openlayers": "=4.6.2",
     "opensphere": "^1.0.0"
   }
 }

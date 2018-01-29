@@ -46,20 +46,34 @@ example.Module.directive('exampleMain', [example.mainDirective]);
 example.MainCtrl = function($scope, $injector) {
   example.MainCtrl.base(this, 'constructor', $scope, $injector, example.ROOT, 'OpenSphere Example App');
 
-  // configure data manager
+  //
+  // Configure the data manager.
+  //
+  // OSDataManager will listen to layer add/remove events on the map and automatically pick up and manage Openlayers
+  // data sources for those layers.
+  //
   os.dataManager = os.osDataManager = os.data.OSDataManager.getInstance();
 
-  // create map instance and listen for it to be initialized
+  //
+  // Create the map instance and listen for it to be initialized. The map directive will make the initialize call so
+  // we don't have to do it here.
+  //
   var map = os.MapContainer.getInstance();
   map.listenOnce(os.MapEvent.MAP_READY, this.onMapReady_, false, this);
 
-  // add keyboard/mouse interactions to the map
+  //
+  // Add keyboard/mouse interactions to the map.
+  //
   map.setInteractionFunction(example.map.getInteractions);
 
-  // add UI controls to the map
+  //
+  // Add UI controls to the map.
+  //
   map.setControlFunction(example.map.getControls);
 
-  // initialize the controller
+  //
+  // Initialize the controller.
+  //
   this.initialize();
 };
 goog.inherits(example.MainCtrl, os.ui.AbstractMainCtrl);
@@ -78,14 +92,20 @@ example.MainCtrl.LOGGER_ = goog.log.getLogger('example.MainCtrl');
  * @inheritDoc
  */
 example.MainCtrl.prototype.addPlugins = function() {
-  // add support for various server types
+  //
+  // Add support for various server types.
+  //
   os.ui.pluginManager.addPlugin(new plugin.ogc.OGCPlugin());
   os.ui.pluginManager.addPlugin(new plugin.xyz.XYZPlugin());
 
-  // add support for base maps
+  //
+  // Add support for base maps.
+  //
   os.ui.pluginManager.addPlugin(new plugin.basemap.BaseMapPlugin());
 
-  // add support for loading various file types
+  //
+  // Add support for loading various file types.
+  //
   os.ui.pluginManager.addPlugin(new plugin.file.csv.CSVPlugin());
   os.ui.pluginManager.addPlugin(new plugin.file.kml.KMLPlugin());
   os.ui.pluginManager.addPlugin(new plugin.file.geojson.GeoJSONPlugin());
@@ -96,10 +116,13 @@ example.MainCtrl.prototype.addPlugins = function() {
 
 /**
  * Tasks that should run after the map has been initialized.
- * @param {goog.events.Event} event The loaded event
+ * @param {!goog.events.Event} event The loaded event.
  * @private
  */
 example.MainCtrl.prototype.onMapReady_ = function(event) {
+  //
+  // Initialize plugins after the map is ready, to allow plugins to make changes to the map if necessary.
+  //
   this.initPlugins();
 };
 
@@ -110,7 +133,9 @@ example.MainCtrl.prototype.onMapReady_ = function(event) {
 example.MainCtrl.prototype.onPluginsLoaded = function(opt_e) {
   example.MainCtrl.base(this, 'onPluginsLoaded', opt_e);
 
-  // load data providers from settings
+  //
+  // Load/restore data providers from settings.
+  //
   var dm = os.dataManager;
   try {
     dm.restoreDescriptors();

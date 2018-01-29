@@ -23,12 +23,21 @@ goog.require('os.ui.ol.interaction.MouseWheelZoom');
 example.map.getControls = function() {
   var controls = [];
 
+  //
+  // +/- zoom buttons
+  //
   var zoomCtrl = new os.control.Zoom();
   controls.push(zoomCtrl);
 
+  //
+  // Show current rotation, and click to reset.
+  //
   var rotate = new os.control.Rotate();
   controls.push(rotate);
 
+  //
+  // Toggle between 2D map and 3D globe.
+  //
   var mapMode = new os.control.MapMode();
   controls.push(mapMode);
 
@@ -41,15 +50,18 @@ example.map.getControls = function() {
  * @return {!ol.Collection}
  */
 example.map.getInteractions = function() {
-  // interaction to use ctrl+drag for zooming
+  //
+  // Ctrl+Drag will draw a zoom box.
+  //
   var ctrlZoom = new os.interaction.DragZoom();
 
-  // interaction to disable alt+shift+drag to rotate the map and shift+drag to zoom from the defaults
   var options = {
     delta: 0.2
   };
 
-  // Mouse Wheel zoom AND left+right click and drag zoom
+  //
+  // Zoom via mouse wheel, left+right click and drag, or double click.
+  //
   var mwZoom = new os.ui.ol.interaction.MouseWheelZoom(options);
   var mZoom = new os.interaction.MouseZoom(options);
   var dcZoom = new os.interaction.DoubleClickZoom();
@@ -59,13 +71,21 @@ example.map.getInteractions = function() {
     delta: 0.2
   });
 
-  // control the map with the keyboard
-  var keyTiltRotate = new os.interaction.KeyboardTiltRotate(options);
+  //
+  // Add keyboard controls for:
+  //  - Pan map/globe with arrow keys
+  //  - Tilt/rotate 3D globe with Shift+arrow keys
+  //  - Zoom with +/- and Page Up/Down
+  //  - Reset rotation with R, reset entire view with V
+  //
   var kbPan = new os.interaction.KeyboardPan();
+  var keyTiltRotate = new os.interaction.KeyboardTiltRotate(options);
   var kbZoom = new os.interaction.KeyboardZoom(options);
   var reset = new os.interaction.Reset();
 
-  // Run order is backwards, so 0 index is run last
+  //
+  // Run order is backwards, so 0 index is run last.
+  //
   return new ol.Collection([
     keyTiltRotate,
     kbPan,
