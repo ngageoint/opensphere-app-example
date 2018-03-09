@@ -105,7 +105,7 @@
     "bootstrap": "^4.0.0",
     "google-closure-library": "^20171203.0.0",
     "modernizr": "~3.3.x",
-    "openlayers": "=4.6.2",
+    "openlayers": "=4.6.4",
     "opensphere": "^1.0.0"
   }
 }
