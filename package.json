@@ -11,6 +11,10 @@
     "type": "app",
     "index": "index.js",
     "scss": "scss/example.scss",
+    "themes": [
+      "overrides_default_compact",
+      "overrides_slate_compact"
+    ],
     "gcc": {
       "define": [
         "os.SETTINGS=config/settings.json",
@@ -27,19 +31,21 @@
   "scripts": {
     "build": "yarn run init && yarn run lint && yarn run modernizr && yarn run compile && yarn run copy && yarn run build:index",
     "build:debug": "yarn run init && yarn run modernizr && yarn run compile:resolve && yarn run compile:debugcss && yarn run build:debugindex",
-    "build:index": "xargs -n 1 os-index < .build/resources-pages",
-    "build:debugindex": "xargs -n 1 os-index --debug < .build/resources-pages",
-    "compile:resolve": "os-resolve .build --defineRoots $(cat .build/version)",
-    "compile:css": "node-sass --output-style compressed $(cat .build/node-sass-args) > .build/opensphere-app-example.min.css",
-    "compile:debugcss": "node-sass --source-map true -o .build --output-style expanded $(cat .build/node-sass-args)",
+    "build:index": "os-index ./index.js",
+    "build:debugindex": "os-index --debug ./index.js",
+    "compile:resolve": "os-resolve --outputDir .build --defineRoots $(cat .build/version)",
+    "compile:css": "npm run compile:debugcss; npm run minify:css;",
+    "compile:debugcss": "for i in $(ls .build/themes -1 | grep node-sass-args); do node-sass --source-map true -o .build/themes --output-style expanded $(cat .build/themes/$i) & pids=\"$pids $!\"; done; wait $pids; npm run postcompile:debugcss",
+    "postcompile:debugcss": "for i in $(ls .build/themes -1 | grep combined.css | grep -v combined.css.map); do postcss .build/themes/$i --no-map -u autoprefixer -r & pids=\"$pids $!\"; done; wait $pids",
+    "minify:css": "for i in $(ls .build/themes -1 | grep combined.css | grep -v combined.css.map); do cleancss --output .build/themes/$(echo $i | sed 's/combined/min/') .build/themes/$i & pids=\"$pids $!\"; done; wait $pids",
     "compile:gcc": "os-compile $(cat .build/gcc-java-args)",
     "postcompile:gcc": "echo \"//# sourceMappingURL=`pwd`/.build/opensphere-app-example.min.map\" >> .build/opensphere-app-example.min.js",
     "compile": "yarn run compile:resolve && yarn run compile:gcc && yarn run compile:css && yarn run compile:debugcss",
-    "precopy:files": "mkdirp $(cat .build/version)/styles && mkdirp dist/opensphere-app-example/test",
+    "precopy:files": "mkdirp $(cat .build/version)/styles && mkdirp $(cat .build/version)/styles/themes",
     "precopy:views": "mkdirp $(cat .build/version)/views",
     "precopy:config": "mkdirp dist/opensphere-app-example/config",
     "precopy:resources": "xargs -n 1 mkdir -p < .build/resources-copy-dirs",
-    "copy:files": "cp .build/opensphere-app-example.min.js $(cat .build/version) && cp .build/opensphere-app-example.min.css $(cat .build/version)/styles",
+    "copy:files": "cp .build/opensphere-app-example.min.js $(cat .build/version) && cp .build/themes/*.min.css $(cat .build/version)/styles/themes",
     "copy:views": "xargs -n 1 -I @ sh -c 'cp -rf @ $(cat .build/version)/views/.' < .build/copy-views-args",
     "copy:config": "cp .build/settings.json dist/opensphere-app-example/config",
     "copy:resources": "xargs -n 2 cp -r < .build/resources-copy-files",
@@ -49,7 +55,7 @@
     "init:version": "echo dist/opensphere-app-example/v$(date +%s) > .build/version",
     "init:vfolder": "mkdirp $(cat .build/version)",
     "init": "yarn run init:base && yarn run init:debug && yarn run init:version && yarn run init:vfolder",
-    "lint:css": "sass-lint -v -s scss -i 'scss/nolint/**/*.scss' 'scss/**/*.scss'",
+    "lint:css": "sass-lint -c ../opensphere/.sass-lint.yml -v -s scss -i 'scss/nolint/**/*.scss' 'scss/**/*.scss'",
     "lint:js": "eslint --cache 'src/**/*.js'",
     "lint": "yarn run lint:js && yarn run lint:css",
     "modernizr": "modernizr -c modernizr.config.json -u -d .build/modernizr.js"
@@ -85,16 +91,16 @@
     "eslint-config-google": "^0.7.0",
     "eslint-config-opensphere": "^1.0.0",
     "eslint-plugin-google-camelcase": "^0.0.2",
-    "eslint-plugin-opensphere": "^1.0.0",
+    "eslint-plugin-opensphere": "^2.0.0",
     "google-closure-compiler": "^20171203.0.0",
     "husky": "^0.13.3",
     "mkdirp": "^0.5.1",
-    "node-sass": "=4.7.2",
+    "node-sass": "4.7.2",
     "opensphere-build-closure-helper": "^1.0.0",
     "opensphere-build-index": "^1.0.0",
-    "opensphere-build-resolver": "^2.1.0",
+    "opensphere-build-resolver": "^3.0.0",
     "rimraf": "^2.5.4",
-    "sass-lint": "^1.9.1",
+    "sass-lint": "^1.12.1",
     "validate-commit-msg": "^2.8.2"
   },
   "dependencies": {
@@ -102,10 +108,11 @@
     "angular-animate": "~1.5.x",
     "angular-route": "~1.5.x",
     "angular-sanitize": "~1.5.x",
-    "bootstrap": "^4.0.0",
+    "bootstrap": "4.1.1",
+    "bootswatch": "4.1.1",
     "google-closure-library": "^20171203.0.0",
     "modernizr": "~3.3.x",
-    "openlayers": "=4.6.4",
+    "openlayers": "4.6.4",
     "opensphere": "^1.0.0"
   }
 }

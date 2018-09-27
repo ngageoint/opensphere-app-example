@@ -1,0 +1,9 @@
+// Override OpenLayers controls to have a different border color
+.ol-control {
+  border-color: $primary;
+
+  &:focus,
+  &:hover {
+    border-color: lighten($primary, 10%);
+  }
+}

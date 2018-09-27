@@ -5,7 +5,6 @@ goog.require('example.SettingsInitializer');
 goog.require('example.defines');
 goog.require('example.mainDirective');
 goog.require('os.mixin');
-goog.require('os.mixin.cesium');
 goog.require('os.net');
 goog.require('os.query');
 goog.require('os.ui');
