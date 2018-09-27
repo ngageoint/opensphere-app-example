@@ -17,6 +17,18 @@ const buildDir = '.build';
 const buildPath = path.join(__dirname, buildDir);
 
 /**
+ * Path to the built version file.
+ * @type {string}
+ */
+const versionFile = path.join(buildPath, 'version');
+
+/**
+ * Relative path of the built version directory.
+ * @type {string}
+ */
+const version = fs.readFileSync(versionFile, 'utf8').trim().replace(/.*\//, '');
+
+/**
  * Relative path of the built distribution directory.
  * @type {string}
  */
@@ -44,14 +56,31 @@ const indexResources = [
     css: ['ol.css']
   },
   {
-    source: resolver.resolveModulePath('bootstrap/dist', __dirname),
-    target: 'vendor/bootstrap',
-    css: ['css/bootstrap.min.css']
-  },
-  {
     source: resolver.resolveModulePath('jquery/dist', __dirname),
     target: 'vendor/jquery',
     scripts: ['jquery.min.js']
+  },
+  {
+    source: resolver.resolveModulePath('bootstrap/dist', __dirname),
+    target: 'vendor/bootstrap',
+    scripts: ['js/bootstrap.bundle.min.js']
+  },
+  {
+    source: resolver.resolveModulePath('opensphere/vendor/jquery', __dirname),
+    target: 'vendor/jquery',
+    scripts: ['jquery.event.drag-2.3.0.js', 'jquery.resize.js']
+  },
+  {
+    source: resolver.resolveModulePath('opensphere/vendor/jquery-ui', __dirname),
+    target: 'vendor/jquery-ui',
+    css: ['lightness/jquery-ui-1.12.1.min.css'],
+    scripts: ['jquery-ui-1.12.1.min.js'],
+    files: ['lightness/images']
+  },
+  {
+    source: resolver.resolveModulePath('bootstrap/dist', __dirname),
+    target: 'vendor/bootstrap',
+    scripts: ['js/bootstrap.bundle.min.js']
   },
   {
     source: resolver.resolveModulePath('moment/min', __dirname),
@@ -121,11 +150,10 @@ module.exports = {
   templates: [
     {
       id: 'index',
-      file: 'index-template.html',
       resources: indexResources
     }
   ],
-  debugCss: path.join(buildDir, 'combined.css'),
-  compiledCss: path.join(appVersion, 'styles', 'opensphere-app-example.min.css'),
+  debugCss: path.join(buildDir, 'themes/default.combined.css'),
+  compiledCss: path.join(version, 'styles', 'themes/default.min.css'),
   compiledJs: path.join(appVersion, 'opensphere-app-example.min.js')
 };

@@ -8,6 +8,7 @@ goog.require('os.data.OSDataManager');
 goog.require('os.ui.AbstractMainCtrl');
 goog.require('os.ui.mapDirective');
 goog.require('plugin.basemap.BaseMapPlugin');
+goog.require('plugin.cesium.Plugin');
 goog.require('plugin.file.csv.CSVPlugin');
 goog.require('plugin.file.geojson.GeoJSONPlugin');
 goog.require('plugin.file.gpx.GPXPlugin');
@@ -102,6 +103,11 @@ example.MainCtrl.prototype.addPlugins = function() {
   // Add support for base maps.
   //
   os.ui.pluginManager.addPlugin(new plugin.basemap.BaseMapPlugin());
+
+  //
+  // Add support for Cesium 3D globe.
+  //
+  os.ui.pluginManager.addPlugin(new plugin.cesium.Plugin());
 
   //
   // Add support for loading various file types.
