@@ -1,0 +1,32 @@
+language: node_js
+cache:
+  yarn: true
+  directories:
+  - "node_modules"
+notifications:
+  email: false
+node_js:
+- stable
+os:
+- linux
+addons:
+  chrome: stable
+  apt:
+    sources:
+    - sourceline: "deb https://dl.yarnpkg.com/debian/ stable main"
+      key_url: "https://dl.yarnpkg.com/debian/pubkey.gpg"
+    packages:
+    - yarn
+install:
+- git clone https://github.com/ngageoint/opensphere-yarn-workspace.git
+- cd opensphere-yarn-workspace/workspace
+- git clone https://github.com/ngageoint/opensphere.git
+- git clone https://github.com/$TRAVIS_REPO_SLUG.git
+- cd opensphere-app-example
+- git checkout -qf $TRAVIS_COMMIT
+- yarn config list
+- yarn
+script:
+- set -e
+- yarn run build
+- set +e
