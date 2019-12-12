@@ -68,7 +68,12 @@ const indexResources = [
   {
     source: resolver.resolveModulePath('opensphere/vendor/jquery', __dirname),
     target: 'vendor/jquery',
-    scripts: ['jquery.event.drag-2.3.0.js', 'jquery.resize.js']
+    scripts: ['jquery.event.drag-2.3.0.js']
+  },
+  {
+    source: resolver.resolveModulePath('css-element-queries/src', __dirname),
+    target: 'vendor/css-element-queries',
+    scripts: ['ResizeSensor.js']
   },
   {
     source: resolver.resolveModulePath('opensphere/vendor/jquery-ui', __dirname),
@@ -119,8 +124,8 @@ const indexResources = [
   {
     source: resolver.resolveModulePath('cesium/Build/Cesium', __dirname),
     target: 'vendor/cesium',
-    scripts: ['Cesium.js'],
     files: [
+      'Cesium.js',
       'Assets',
       'ThirdParty',
       'Workers'
@@ -136,6 +141,15 @@ const indexResources = [
       'os-asm.js',
       'os-asm.js.mem'
     ]
+  },
+  {
+    source: resolver.resolveModulePath('opensphere/vendor/fonts/typeface-open-sans', __dirname),
+    target: 'vendor/fonts/typeface-open-sans',
+    files: ['files', 'index.css']
+  },
+  {
+    source: resolver.resolveModulePath('markdown-it/dist', __dirname),
+    scripts: ['markdown-it.min.js']
   }
 ];
 
@@ -150,6 +164,7 @@ module.exports = {
   templates: [
     {
       id: 'index',
+      file: 'index-template.html',
       resources: indexResources
     }
   ],
