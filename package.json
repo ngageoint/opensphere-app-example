@@ -15,6 +15,10 @@
       "overrides_default_compact",
       "overrides_slate_compact"
     ],
+    "defineRoots": {
+      "os.ROOT": "../opensphere/",
+      "ROOT": "./"
+    },
     "gcc": {
       "define": [
         "os.SETTINGS=config/settings.json",
