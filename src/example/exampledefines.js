@@ -4,4 +4,4 @@ goog.provide('example.defines');
 /**
  * @define {string} The path to this project
  */
-goog.define('example.ROOT', '../opensphere-app-example/');
+example.ROOT = goog.define('example.ROOT', '../opensphere-app-example/');

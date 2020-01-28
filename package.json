@@ -17,7 +17,7 @@
     ],
     "defineRoots": {
       "os.ROOT": "../opensphere/",
-      "ROOT": "./"
+      "os.APP_ROOT": "./"
     },
     "gcc": {
       "define": [
@@ -109,7 +109,6 @@
     "bootstrap": "4.3.1",
     "bootswatch": "4.3.1",
     "css-element-queries": "^1.2.1",
-    "google-closure-library": "^20190415.0.0",
     "modernizr": "~3.3.x",
     "openlayers": "4.6.4",
     "opensphere": "0.0.0-development"
