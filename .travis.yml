@@ -26,6 +26,7 @@ install:
 - git checkout -qf $TRAVIS_COMMIT
 - yarn config list
 - yarn
+- yarn upgrade
 script:
 - set -e
 - yarn run build
