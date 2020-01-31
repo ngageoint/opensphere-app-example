@@ -90,7 +90,6 @@
     "clean-css-cli": "^4.1.11",
     "eslint": "^6.0.0",
     "eslint-config-opensphere": "^3.3.0",
-    "google-closure-compiler": "^20190415.0.0",
     "husky": "^3.0.1",
     "mkdirp": "^0.5.1",
     "node-sass": "^4.12.0",
@@ -108,9 +107,7 @@
     "angular-sanitize": "~1.7.x",
     "bootstrap": "4.3.1",
     "bootswatch": "4.3.1",
-    "css-element-queries": "^1.2.1",
-    "modernizr": "~3.3.x",
-    "openlayers": "4.6.4",
+    "modernizr": "^3.8.0",
     "opensphere": "0.0.0-development"
   },
   "husky": {
