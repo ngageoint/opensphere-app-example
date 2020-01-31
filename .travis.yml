@@ -3,6 +3,8 @@ cache:
   yarn: true
   directories:
   - "node_modules"
+git:
+  clone: false
 notifications:
   email: false
 node_js:
@@ -26,7 +28,6 @@ install:
 - git checkout -qf $TRAVIS_COMMIT
 - yarn config list
 - yarn
-- yarn upgrade
 script:
 - set -e
 - yarn run build
