@@ -23,9 +23,9 @@ install:
 - git clone --depth 1 https://github.com/ngageoint/opensphere-yarn-workspace.git
 - cd opensphere-yarn-workspace/workspace
 - git clone --depth 1 https://github.com/ngageoint/opensphere.git
-- git clone https://github.com/$TRAVIS_REPO_SLUG.git
+- git clone https://github.com/${TRAVIS_PULL_REQUEST_SLUG:-$TRAVIS_REPO_SLUG}.git
 - cd opensphere-app-example
-- git checkout -qf $TRAVIS_COMMIT
+- git checkout -qf ${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}
 - yarn config list
 - yarn
 script:
