@@ -89,7 +89,7 @@
     "@commitlint/travis-cli": "^8.1.0",
     "clean-css-cli": "^4.1.11",
     "eslint": "^6.0.0",
-    "eslint-config-opensphere": "^3.3.0",
+    "eslint-config-opensphere": "^4.0.0",
     "husky": "^3.0.1",
     "mkdirp": "^0.5.1",
     "node-sass": "^4.12.0",
