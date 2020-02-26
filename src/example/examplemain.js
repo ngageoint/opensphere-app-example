@@ -93,6 +93,9 @@ example.MainCtrl.LOGGER_ = goog.log.getLogger('example.MainCtrl');
  * @inheritDoc
  */
 example.MainCtrl.prototype.addPlugins = function() {
+  // Call the parent method to load default plugins.
+  example.MainCtrl.base(this, 'addPlugins');
+
   //
   // Add support for various server types.
   //
