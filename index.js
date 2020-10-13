@@ -143,11 +143,6 @@ const indexResources = [
     ]
   },
   {
-    source: resolver.resolveModulePath('opensphere/vendor/fonts/typeface-open-sans', __dirname),
-    target: 'vendor/fonts/typeface-open-sans',
-    files: ['files', 'index.css']
-  },
-  {
     source: resolver.resolveModulePath('markdown-it/dist', __dirname),
     scripts: ['markdown-it.min.js']
   }

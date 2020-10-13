@@ -105,8 +105,8 @@
     "angular-animate": "~1.7.x",
     "angular-route": "~1.7.x",
     "angular-sanitize": "~1.7.x",
-    "bootstrap": "4.3.1",
-    "bootswatch": "4.3.1",
+    "bootstrap": "4.5.0",
+    "bootswatch": "4.5.0",
     "modernizr": "^3.8.0",
     "opensphere": "0.0.0-development"
   },
