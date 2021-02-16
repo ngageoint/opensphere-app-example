@@ -164,6 +164,7 @@ module.exports = {
     }
   ],
   debugCss: path.join(buildDir, 'themes/default.combined.css'),
+  debugJs: path.join(buildDir, 'opensphere-app-example.js'),
   compiledCss: path.join(version, 'styles', 'themes/default.min.css'),
   compiledJs: path.join(appVersion, 'opensphere-app-example.min.js')
 };
