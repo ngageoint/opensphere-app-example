@@ -3,6 +3,7 @@
 dist/
 .build/
 index.html
+vendor/os-minified
 
 # Dependencies #
 ################
