@@ -1,15 +1,17 @@
-goog.provide('example.SettingsInitializer');
+goog.declareModuleId('example.SettingsInitializer');
 
-goog.require('os.config.SettingsInitializer');
+import OSSettingsInitializer from 'opensphere/src/os/config/settingsinitializer.js';
 
 
 /**
  * Initializes settings for the application and bootstraps Angular.
- * @extends {os.config.SettingsInitializer}
- * @constructor
  */
-example.SettingsInitializer = function() {
-  example.SettingsInitializer.base(this, 'constructor');
-  this.ngAppModule = 'example';
-};
-goog.inherits(example.SettingsInitializer, os.config.SettingsInitializer);
+export default class SettingsInitializer extends OSSettingsInitializer {
+  /**
+   * Constructor.
+   */
+  constructor() {
+    super();
+    this.ngAppModule = 'example';
+  }
+}

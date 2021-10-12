@@ -1,11 +1,14 @@
-goog.provide('example.Module');
+goog.declareModuleId('example.Module');
 
 /**
- * Angular module 'example'
+ * Angular module 'example'.
  * @type {angular.Module}
  */
-example.Module = angular.module('example', [
+const Module = angular.module('example', [
   'ngAnimate',
   'ngSanitize',
   'ngRoute',
-  'os.ui']);
+  'os.ui'
+]);
+
+export default Module;

@@ -1,59 +1,58 @@
-goog.provide('example.map');
+goog.declareModuleId('example.map');
 
-goog.require('ol.Collection');
-goog.require('ol.interaction.DragPan');
-goog.require('os.control.MapMode');
-goog.require('os.control.Rotate');
-goog.require('os.control.Zoom');
-goog.require('os.interaction.DoubleClickZoom');
-goog.require('os.interaction.DragZoom');
-goog.require('os.interaction.Hover');
-goog.require('os.interaction.KeyboardPan');
-goog.require('os.interaction.KeyboardTiltRotate');
-goog.require('os.interaction.KeyboardZoom');
-goog.require('os.interaction.MouseZoom');
-goog.require('os.interaction.Reset');
-goog.require('os.ui.ol.interaction.MouseWheelZoom');
+import MapMode from 'opensphere/src/os/control/mapmodecontrol.js';
+import Rotate from 'opensphere/src/os/control/rotatecontrol.js';
+import Zoom from 'opensphere/src/os/control/zoomcontrol.js';
+import DoubleClickZoom from 'opensphere/src/os/interaction/doubleclickzoominteraction.js';
+import DragZoom from 'opensphere/src/os/interaction/dragzoominteraction.js';
+import KeyboardPan from 'opensphere/src/os/interaction/keyboardpaninteraction.js';
+import KeyboardTiltRotate from 'opensphere/src/os/interaction/keyboardtiltrotateinteraction.js';
+import KeyboardZoom from 'opensphere/src/os/interaction/keyboardzoominteraction.js';
+import MouseZoom from 'opensphere/src/os/interaction/mousezoominteraction.js';
+import Reset from 'opensphere/src/os/interaction/resetinteraction.js';
+import MouseWheelZoom from 'opensphere/src/os/ui/ol/interaction/mousewheelzoominteraction.js';
+
+const Collection = goog.require('ol.Collection');
+const DragPan = goog.require('ol.interaction.DragPan');
 
 
 /**
  * Get UI controls that should be registered with the map.
- * @return {!ol.Collection}
+ * @return {!Collection}
  */
-example.map.getControls = function() {
+export const getControls = function() {
   var controls = [];
 
   //
   // +/- zoom buttons
   //
-  var zoomCtrl = new os.control.Zoom();
+  var zoomCtrl = new Zoom();
   controls.push(zoomCtrl);
 
   //
   // Show current rotation, and click to reset.
   //
-  var rotate = new os.control.Rotate();
+  var rotate = new Rotate();
   controls.push(rotate);
 
   //
   // Toggle between 2D map and 3D globe.
   //
-  var mapMode = new os.control.MapMode();
+  var mapMode = new MapMode();
   controls.push(mapMode);
 
-  return new ol.Collection(controls);
+  return new Collection(controls);
 };
-
 
 /**
  * Get interactions that should be registered with the map.
- * @return {!ol.Collection}
+ * @return {!Collection}
  */
-example.map.getInteractions = function() {
+export const getInteractions = function() {
   //
   // Ctrl+Drag will draw a zoom box.
   //
-  var ctrlZoom = new os.interaction.DragZoom();
+  var ctrlZoom = new DragZoom();
 
   var options = {
     delta: 0.2
@@ -62,11 +61,11 @@ example.map.getInteractions = function() {
   //
   // Zoom via mouse wheel, left+right click and drag, or double click.
   //
-  var mwZoom = new os.ui.ol.interaction.MouseWheelZoom(options);
-  var mZoom = new os.interaction.MouseZoom(options);
-  var dcZoom = new os.interaction.DoubleClickZoom();
+  var mwZoom = new MouseWheelZoom(options);
+  var mZoom = new MouseZoom(options);
+  var dcZoom = new DoubleClickZoom();
 
-  var dragPan = new ol.interaction.DragPan({
+  var dragPan = new DragPan({
     kinetic: undefined,
     delta: 0.2
   });
@@ -78,15 +77,15 @@ example.map.getInteractions = function() {
   //  - Zoom with +/- and Page Up/Down
   //  - Reset rotation with R, reset entire view with V
   //
-  var kbPan = new os.interaction.KeyboardPan();
-  var keyTiltRotate = new os.interaction.KeyboardTiltRotate(options);
-  var kbZoom = new os.interaction.KeyboardZoom(options);
-  var reset = new os.interaction.Reset();
+  var kbPan = new KeyboardPan();
+  var keyTiltRotate = new KeyboardTiltRotate(options);
+  var kbZoom = new KeyboardZoom(options);
+  var reset = new Reset();
 
   //
   // Run order is backwards, so 0 index is run last.
   //
-  return new ol.Collection([
+  return new Collection([
     keyTiltRotate,
     kbPan,
     kbZoom,
