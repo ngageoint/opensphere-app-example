@@ -72,7 +72,8 @@
     "init": "npm-run-all -p init:base init:debug -s init:version init:vfolder",
     "lint:css": "sass-lint -c ../opensphere/.sass-lint.yml -v -s scss -i 'scss/nolint/**/*.scss' 'scss/**/*.scss'",
     "lint:js": "eslint --cache 'src/**/*.js'",
-    "lint": "run-p lint:js lint:css"
+    "lint": "run-p lint:js lint:css",
+    "postinstall": "husky install"
   },
   "keywords": [
     "opensphere",
@@ -96,7 +97,7 @@
     "clean-css-cli": "^4.1.11",
     "eslint": "^7.26.0",
     "eslint-config-opensphere": "^6.0.2",
-    "husky": "^3.0.1",
+    "husky": "^7.0.4",
     "mkdirp": "^1.0.4",
     "node-sass": "^4.12.0",
     "npm-run-all": "^4.1.5",
@@ -119,10 +120,5 @@
     "bootswatch": "4.5.0",
     "modernizr": "^3.8.0",
     "opensphere": "0.0.0-development"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   }
 }
